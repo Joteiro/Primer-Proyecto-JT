@@ -30,7 +30,7 @@ SAVE_EVERY_PAGES = 40
 RAW_DIR = "raw"
 os.makedirs(RAW_DIR, exist_ok=True)
 
-RESUME_CSV = os.path.join(RAW_DIR, "vivino_all_types_partial.csv")
+RESUME_CSV = os.path.join(RAW_DIR, "vivino_all_types.csv")
 
 
 # ---------------- SAFE REQUEST ----------------
@@ -56,24 +56,53 @@ def safe_request(payload, retries=3):
 # ---------------- EXTRACTION ----------------
 
 def extract_data(match, wine_type_label):
-    vintage = match.get("vintage", {})
-    wine = vintage.get("wine", {})
-    region = wine.get("region", {})
-    country = region.get("country", {})
-    prices = match.get("prices", [])
-    price = prices[0]["amount"] if prices else None
+    # 🔹 Datos básicos
+    vintage = match.get("vintage") or {}
+    wine = vintage.get("wine") or {}
+    region = wine.get("region") or {}
+    country = region.get("country") or {}
+    winery = wine.get("winery") or {}
+    statistics = vintage.get("statistics") or {}
+    prices = match.get("prices") or []
+
+    # Precio
+    price = None
+    if isinstance(prices, list) and len(prices) > 0:
+        price = prices[0].get("amount")
+
+    # 🔹 Estilo
+    style = wine.get("style") or {}
+    baseline = style.get("baseline_structure") or {}
 
     return {
+        # Identificación
         "wine_id": wine.get("id"),
-        "winery": wine.get("winery", {}).get("name"),
-        "wine_name": f"{wine.get('name')} {vintage.get('year')}",
+        "wine_name": f"{wine.get('name') or ''} {vintage.get('year') or ''}".strip(),
+        "winery": winery.get("name"),
         "year": vintage.get("year"),
-        "rating": vintage.get("statistics", {}).get("ratings_average"),
-        "num_reviews": vintage.get("statistics", {}).get("ratings_count"),
+        "wine_type": wine_type_label,
+
+        # Ratings
+        "rating": statistics.get("ratings_average"),
+        "num_reviews": statistics.get("ratings_count"),
+
+        # Precio
         "price": price,
+
+        # Geografía
         "country": country.get("name"),
         "region": region.get("name"),
-        "wine_type": wine_type_label
+
+        # Estilo
+        "style": style.get("name"),
+        "style_body": style.get("body"),
+        "style_acidity": style.get("acidity"),
+        "intensity": baseline.get("intensity"),
+        "sweetness": baseline.get("sweetness"),
+        "tannin": baseline.get("tannin"),
+
+        # 🔹 NOTA: sacamos grapes
+        # "grapes": grapes_str
     }
 
 
