@@ -138,7 +138,7 @@ def scrape():
                     "min_rating": str(min_rating),
                     "max_rating": str(max_rating),
                     "order_by": "ratings_count",
-                    "order": "desc",
+                    "order": "asc",
                     "page": page,
                     "price_range_max": "500",
                     "price_range_min": "0",
