@@ -1,0 +1,102 @@
+# 🍷 Análisis Estructural de Vinos – Dataset Vivino
+
+
+## 📌 Descripción del Proyecto
+
+Este proyecto construye un dataset académico estructurado de vinos disponibles en España utilizando el endpoint público explore de la API de Vivino (https://www.vivino.com/es/). La fecha del scrapping es 20/02/2025.
+
+El objetivo es recopilar información estructural, geográfica y de valoración para realizar análisis exploratorio de datos (EDA).
+
+## 🎯 Objetivo
+
+Analizar la relación entre las características estructurales del vino y su valoración por parte de los consumidores. El proyecto no pretende determinar la calidad objetiva del vino, sino estudiar patrones en datos de consumo reales.
+
+## ❓ Preguntas de Investigación
+
+¿Qué factores influyen en el precio de los vinos españoles? <br>
+¿Hay diferencias estructurales por región? <br>
+¿Los vinos antiguos tienden a ser más estructurados y los jóvenes más ligeros? ¿Esto se ve reflejado en el puntaje?
+
+## 🗂 Estructura del Proyecto
+
+```bash
+project/
+├── main.py
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── scrapping.py
+├── notebooks/
+│   └── eda.ipynb
+├── src/
+│   ├── __init__.py
+│   ├── io.py
+│   ├── cleaning.py
+│   ├── features.py
+│   ├── viz.py
+│   └── utils.py
+├── README.md
+└── requirements.txt
+```
+
+## 📎 Dataset
+
+En el archivo "vivino_all_types.csv", con 7965 filas y 17 columnas, podemos encontrar las siguientes variables:
+
+- Variables estructurales del vino (style_body, style_acidity, intensity, tannin, sweetness)
+
+- Ratings, número de reseñas (num_reviews) y precio (price)
+
+- Información geográfica (country, region) y añada (year)
+
+- Segmentación por tipo de vino (wine_name, winery, wine_type, style)
+
+- Stock (variable ficticia para "ensuciar" un poco más el dataset)
+
+## 🔧 Data Issues & Fixes
+
+- Un solo país (lo cual es positivo porque solamente queremos analizar España), no nos aporta nada.
+
+    -> Lo eliminamos del dataset porque es redundante.
+
+- El estilo muchas veces dice "(España)" después de la cepa.
+
+    -> Lo eliminamos para que quede mejor visualmente.
+
+- El stock tiene que tener formato de integer y está en string, ya que tiene valores que no son númericos.
+
+    -> Lista de equivalencias de números en string a integer y depuración.
+
+- Valores faltantes en algunas columnas.
+
+    -> Para los stocks, los completamos con "0" asumiendo que no hay de ese tipo de vino.  
+
+- Hay un vino blanco al que no se le completaron algunos datos.
+
+    -> Variables numéricas como promedio del grupo "Vinos Blancos de Ribera del Duero" y "style" como valor más frecuente.
+
+- El nombre del vino muchas veces tiene su añada al final (ya tenemos esta información)
+
+    -> Lo depuramos para que quede mejor visualmente.
+
+## ▶️ Pipeline
+
+raw → clean → features → viz → (export opcional a `data/processed/`)
+
+## 🚀 Cómo Ejecutar
+
+- `pip install -r requirements.txt`
+- Ejecutar pipeline: `python main.py`
+- (Opcional) Abrir y ejecutar: `notebooks/eda.ipynb`
+
+## 🔎 Hallazgos y Conclusión
+
+
+
+## ⚠️ Aviso
+
+Este proyecto tiene fines exclusivamente académicos y de demostración técnica. Esta prueba de concepto tiene algunas limitaciones. En primer lugar, la lista de vinos extraídos no necesariamente ofrece una visión completa y exhaustiva del vino español. En segundo lugar, los vinos que se muestran solo incluyen los que están disponibles actualmente para su compra. Por último, al tratarse de una base de datos de consumidores, los resultados de las valoraciones pueden no representar opiniones profesionales.
+
+## 👨‍💻 Autor
+
+Juan T. | Data Science
