@@ -50,6 +50,9 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     pattern = r'\s?(19\d{2}|20\d{2})$'
     df["wine_name"] = df["wine_name"].str.replace(pattern, '', regex=True).str.strip()
 
+    # 🔥 Asegurar que year sea numérico
+    df["year"] = pd.to_numeric(df["year"], errors="coerce")
+
     # Quitar "(España)" de style
     df["style"] = df["style"].str.replace(r'\(España\)', '', regex=True).str.strip()
 

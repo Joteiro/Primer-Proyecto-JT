@@ -12,7 +12,7 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     # ---------------------------
     # Paso 1: rating_per_euro
     # ---------------------------
-    df["rating_per_euro"] = (df["rating"] / np.log(df["price"])).round(2)
+    df["rating_per_euro"] = (np.exp(df["rating"]) / np.log(df["price"])).round(2)
 
     # ---------------------------
     # Paso 2: índices

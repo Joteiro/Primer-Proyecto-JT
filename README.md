@@ -5,17 +5,16 @@
 
 Este proyecto construye un dataset académico estructurado de vinos disponibles en España utilizando el endpoint público explore de la API de Vivino (https://www.vivino.com/es/). La fecha del scrapping es 20/02/2025.
 
-El objetivo es recopilar información estructural, geográfica y de valoración para realizar análisis exploratorio de datos (EDA).
-
 ## 🎯 Objetivo
 
 Analizar la relación entre las características estructurales del vino y su valoración por parte de los consumidores. El proyecto no pretende determinar la calidad objetiva del vino, sino estudiar patrones en datos de consumo reales.
 
 ## ❓ Preguntas de Investigación
 
-¿Qué factores influyen en el precio de los vinos españoles? <br>
+¿Qué factores influyen en la calificación de los vinos españoles? <br>
 ¿Hay diferencias estructurales por región? <br>
-¿Los vinos antiguos tienden a ser más estructurados y los jóvenes más ligeros? ¿Esto se ve reflejado en el puntaje?
+¿Hay alguna característica que varíe según el tipo de uva? <br> 
+¿Un precio más alto significa mejor puntuación?
 
 ## 🗂 Estructura del Proyecto
 
@@ -35,6 +34,7 @@ project/
 │   ├── features.py
 │   ├── viz.py
 │   └── utils.py
+├── graphs/
 ├── README.md
 └── requirements.txt
 ```
@@ -81,7 +81,7 @@ En el archivo "vivino_all_types.csv", con 7965 filas y 17 columnas, podemos enco
 
 ## ▶️ Pipeline
 
-raw → clean → features → viz → (export opcional a `data/processed/`)
+raw → clean → features (export a `data/processed/`) → viz → (export a `graphs/`)
 
 ## 🚀 Cómo Ejecutar
 
@@ -91,7 +91,11 @@ raw → clean → features → viz → (export opcional a `data/processed/`)
 
 ## 🔎 Hallazgos y Conclusión
 
+Pudimos confirmar varios supuestos del mundo del vino con nuestro conjunto de datos. Por ejemplo, que hay cepas de vinos que están mucho más presentes en ciertas zonas que en otras (en gran parte gracias a lo que conocemos como Denominación de Orígen) O también, que cuánto más antiguo es un vino, más le suele gustar a la gente.
 
+Sin embargo, nos podemos también llevar algunas sopresas. Que haya cepas más presentes en ciertas zonas no quiere decir que allí tengan la mejor puntuación (como el Verdejo en Castilla y León o Valencia comparadas a Rueda). 
+
+También encontramos que no necesariamente a mayor precio, mayor puntuación. Esto da lugar a encontrar varias joyas ocultas: vinos infravalorados en relación precio/calidad.
 
 ## ⚠️ Aviso
 
