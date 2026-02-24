@@ -97,6 +97,28 @@ Sin embargo, nos podemos también llevar algunas sopresas. Que haya cepas más p
 
 También encontramos que no necesariamente a mayor precio, mayor puntuación. Esto da lugar a encontrar varias joyas ocultas: vinos infravalorados en relación precio/calidad.
 
+## 🎁 Bonus: Simulador de Compra Optimizada de Vinos
+
+Además del análisis y limpieza de datos, este proyecto incluye un **widget interactivo tipo CLI** que permite simular compras de vinos con restricciones presupuestarias y preferencias de usuario.  
+
+### Funcionalidades principales
+
+- **Presupuesto controlado:** el usuario define cuánto quiere gastar (máximo 100.000 €).  
+- **Selección de tipos de vino:** se puede elegir uno, varios o todos los tipos disponibles (`Red`, `White`, `Rose`, `Dessert`, `Sparkling`, `Fortified`).  
+- **Optimización inteligente:** el algoritmo selecciona los vinos que maximizan el **rating por euro**, priorizando también los que tienen más reseñas en caso de empate.  
+- **Restricción de stock:** no se puede comprar más unidades de las disponibles en inventario (`stock`).  
+- **Resumen detallado:** al finalizar, el simulador muestra:
+  - Total gastado y presupuesto restante.
+  - Unidades compradas por vino.
+  - Distribución por tipo de vino.
+- **Registro histórico:** cada simulación se guarda automáticamente en `budget_optimizer.log` con fecha, inputs y resultados completos, permitiendo revisar decisiones pasadas.  
+
+### Cómo usarlo
+
+1. Ejecutar el notebook `budget_optimizer.ipynb`.  
+2. Seguir las instrucciones en la CLI para ingresar el presupuesto y seleccionar los tipos de vino.  
+3. Revisar los resultados en pantalla y consultar `budget_optimizer.log` para ver el historial completo.  
+
 ## ⚠️ Aviso
 
 Este proyecto tiene fines exclusivamente académicos y de demostración técnica. Esta prueba de concepto tiene algunas limitaciones. En primer lugar, la lista de vinos extraídos no necesariamente ofrece una visión completa y exhaustiva del vino español. En segundo lugar, los vinos que se muestran solo incluyen los que están disponibles actualmente para su compra. Por último, al tratarse de una base de datos de consumidores, los resultados de las valoraciones pueden no representar opiniones profesionales.
